@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaCut, FaPalette, FaTools, FaHeart, FaGraduationCap, FaHandshake, FaCheck } from "react-icons/fa";
 
 const services = [
@@ -114,47 +112,61 @@ const services = [
 
 export default function ServicesPage() {
     const pageRef = useRef<HTMLDivElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
+        setIsClient(true);
+    }, []);
 
-        gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
+        if (!isClient) return;
 
-        const ctx = gsap.context(() => {
-            // Hero animation
-            gsap.fromTo(
-                ".services-hero-content > *",
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
-            );
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
 
-            // Service sections
-            services.forEach((service) => {
+        const initAnimations = async () => {
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
                 gsap.fromTo(
-                    `#${service.id} .service-image`,
-                    { x: -80, opacity: 0 },
-                    {
-                        x: 0, opacity: 1, duration: 1, ease: "power3.out",
-                        scrollTrigger: { trigger: `#${service.id}`, start: "top 70%" },
-                    }
+                    ".services-hero-content > *",
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
                 );
 
-                gsap.fromTo(
-                    `#${service.id} .service-content > *`,
-                    { x: 50, opacity: 0 },
-                    {
-                        x: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
-                        scrollTrigger: { trigger: `#${service.id}`, start: "top 70%" },
-                    }
-                );
-            });
-        }, pageRef);
+                services.forEach((service) => {
+                    gsap.fromTo(
+                        `#${service.id} .service-image`,
+                        { x: -80, opacity: 0 },
+                        {
+                            x: 0, opacity: 1, duration: 1, ease: "power3.out",
+                            scrollTrigger: { trigger: `#${service.id}`, start: "top 70%" },
+                        }
+                    );
+
+                    gsap.fromTo(
+                        `#${service.id} .service-content > *`,
+                        { x: 50, opacity: 0 },
+                        {
+                            x: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
+                            scrollTrigger: { trigger: `#${service.id}`, start: "top 70%" },
+                        }
+                    );
+                });
+            }, pageRef);
+        };
+
+        initAnimations();
 
         return () => {
-            ctx.revert();
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (ctx) ctx.revert();
         };
-    }, []);
+    }, [isClient]);
 
     return (
         <div ref={pageRef}>

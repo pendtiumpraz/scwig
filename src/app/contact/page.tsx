@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HiLocationMarker, HiPhone, HiMail, HiClock, HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { FaWhatsapp, FaInstagram, FaFacebookF, FaYoutube, FaTiktok } from "react-icons/fa";
 
@@ -60,65 +58,76 @@ export default function ContactPage() {
     const pageRef = useRef<HTMLDivElement>(null);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
+        setIsClient(true);
+    }, []);
 
-        gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
+        if (!isClient) return;
 
-        const ctx = gsap.context(() => {
-            // Hero animation
-            gsap.fromTo(
-                ".contact-hero-content > *",
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
-            );
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
 
-            // Form section
-            gsap.fromTo(
-                ".contact-form-section",
-                { x: -50, opacity: 0 },
-                {
-                    x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: ".contact-section", start: "top 70%" },
-                }
-            );
+        const initAnimations = async () => {
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
 
-            gsap.fromTo(
-                ".contact-info-section",
-                { x: 50, opacity: 0 },
-                {
-                    x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: ".contact-section", start: "top 70%" },
-                }
-            );
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
 
-            // FAQ
-            gsap.fromTo(
-                ".faq-item",
-                { y: 30, opacity: 0 },
-                {
-                    y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out",
-                    scrollTrigger: { trigger: ".faq-section", start: "top 70%" },
-                }
-            );
-        }, pageRef);
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".contact-hero-content > *",
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+                );
+
+                gsap.fromTo(
+                    ".contact-form-section",
+                    { x: -50, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                        scrollTrigger: { trigger: ".contact-section", start: "top 70%" },
+                    }
+                );
+
+                gsap.fromTo(
+                    ".contact-info-section",
+                    { x: 50, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                        scrollTrigger: { trigger: ".contact-section", start: "top 70%" },
+                    }
+                );
+
+                gsap.fromTo(
+                    ".faq-item",
+                    { y: 30, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out",
+                        scrollTrigger: { trigger: ".faq-section", start: "top 70%" },
+                    }
+                );
+            }, pageRef);
+        };
+
+        initAnimations();
 
         return () => {
-            ctx.revert();
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (ctx) ctx.revert();
         };
-    }, []);
+    }, [isClient]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFormStatus("sending");
 
-        // Simulate form submission
         await new Promise((resolve) => setTimeout(resolve, 1500));
         setFormStatus("success");
 
-        // Reset form after success
         setTimeout(() => {
             setFormStatus("idle");
             (e.target as HTMLFormElement).reset();

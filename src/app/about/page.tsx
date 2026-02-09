@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaEye, FaBullseye, FaHeart, FaStar, FaGem, FaLightbulb } from "react-icons/fa";
 
 const timeline = [
@@ -33,85 +31,101 @@ const team = [
 
 export default function AboutPage() {
     const pageRef = useRef<HTMLDivElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
+        setIsClient(true);
+    }, []);
 
-        gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
+        if (!isClient) return;
 
-        const ctx = gsap.context(() => {
-            // Hero animation
-            gsap.fromTo(
-                ".about-hero-content > *",
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
-            );
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
 
-            // Story section
-            gsap.fromTo(
-                ".story-image",
-                { x: -100, opacity: 0 },
-                {
-                    x: 0, opacity: 1, duration: 1, ease: "power3.out",
-                    scrollTrigger: { trigger: ".story-section", start: "top 70%" },
-                }
-            );
+        const initAnimations = async () => {
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
 
-            gsap.fromTo(
-                ".story-content > *",
-                { x: 50, opacity: 0 },
-                {
-                    x: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: ".story-section", start: "top 70%" },
-                }
-            );
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
 
-            // Vision Mission
-            gsap.fromTo(
-                ".vision-card, .mission-card",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, stagger: 0.2, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: ".vision-section", start: "top 70%" },
-                }
-            );
+            gsap.registerPlugin(ScrollTrigger);
 
-            // Values
-            gsap.fromTo(
-                ".value-card",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
-                    scrollTrigger: { trigger: ".values-section", start: "top 70%" },
-                }
-            );
+            ctx = gsap.context(() => {
+                // Hero animation
+                gsap.fromTo(
+                    ".about-hero-content > *",
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+                );
 
-            // Timeline
-            gsap.fromTo(
-                ".timeline-item",
-                { x: -50, opacity: 0 },
-                {
-                    x: 0, opacity: 1, stagger: 0.15, duration: 0.6, ease: "power3.out",
-                    scrollTrigger: { trigger: ".timeline-section", start: "top 70%" },
-                }
-            );
+                // Story section
+                gsap.fromTo(
+                    ".story-image",
+                    { x: -100, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, duration: 1, ease: "power3.out",
+                        scrollTrigger: { trigger: ".story-section", start: "top 70%" },
+                    }
+                );
 
-            // Team
-            gsap.fromTo(
-                ".team-card",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, stagger: 0.15, duration: 0.6, ease: "power3.out",
-                    scrollTrigger: { trigger: ".team-section", start: "top 70%" },
-                }
-            );
-        }, pageRef);
+                gsap.fromTo(
+                    ".story-content > *",
+                    { x: 50, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: "power3.out",
+                        scrollTrigger: { trigger: ".story-section", start: "top 70%" },
+                    }
+                );
+
+                // Vision Mission
+                gsap.fromTo(
+                    ".vision-card, .mission-card",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, stagger: 0.2, duration: 0.8, ease: "power3.out",
+                        scrollTrigger: { trigger: ".vision-section", start: "top 70%" },
+                    }
+                );
+
+                // Values
+                gsap.fromTo(
+                    ".value-card",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
+                        scrollTrigger: { trigger: ".values-section", start: "top 70%" },
+                    }
+                );
+
+                // Timeline
+                gsap.fromTo(
+                    ".timeline-item",
+                    { x: -50, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, stagger: 0.15, duration: 0.6, ease: "power3.out",
+                        scrollTrigger: { trigger: ".timeline-section", start: "top 70%" },
+                    }
+                );
+
+                // Team
+                gsap.fromTo(
+                    ".team-card",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, stagger: 0.15, duration: 0.6, ease: "power3.out",
+                        scrollTrigger: { trigger: ".team-section", start: "top 70%" },
+                    }
+                );
+            }, pageRef);
+        };
+
+        initAnimations();
 
         return () => {
-            ctx.revert();
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (ctx) ctx.revert();
         };
-    }, []);
+    }, [isClient]);
 
     return (
         <div ref={pageRef}>

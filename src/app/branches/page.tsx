@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HiLocationMarker, HiPhone, HiClock, HiCheck, HiArrowRight } from "react-icons/hi";
 import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -98,55 +96,68 @@ const branches = [
 export default function BranchesPage() {
     const pageRef = useRef<HTMLDivElement>(null);
     const [selectedBranch, setSelectedBranch] = useState(branches[0]);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
+        setIsClient(true);
+    }, []);
 
-        gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
+        if (!isClient) return;
 
-        const ctx = gsap.context(() => {
-            // Hero animation
-            gsap.fromTo(
-                ".branches-hero-content > *",
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
-            );
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
 
-            // Map section
-            gsap.fromTo(
-                ".map-sidebar",
-                { x: -50, opacity: 0 },
-                {
-                    x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: ".map-section", start: "top 70%" },
-                }
-            );
+        const initAnimations = async () => {
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
 
-            gsap.fromTo(
-                ".map-content",
-                { x: 50, opacity: 0 },
-                {
-                    x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: ".map-section", start: "top 70%" },
-                }
-            );
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
 
-            // Branch cards
-            gsap.fromTo(
-                ".branch-card",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
-                    scrollTrigger: { trigger: ".branches-grid", start: "top 80%" },
-                }
-            );
-        }, pageRef);
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".branches-hero-content > *",
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+                );
+
+                gsap.fromTo(
+                    ".map-sidebar",
+                    { x: -50, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                        scrollTrigger: { trigger: ".map-section", start: "top 70%" },
+                    }
+                );
+
+                gsap.fromTo(
+                    ".map-content",
+                    { x: 50, opacity: 0 },
+                    {
+                        x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                        scrollTrigger: { trigger: ".map-section", start: "top 70%" },
+                    }
+                );
+
+                gsap.fromTo(
+                    ".branch-card",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
+                        scrollTrigger: { trigger: ".branches-grid", start: "top 80%" },
+                    }
+                );
+            }, pageRef);
+        };
+
+        initAnimations();
 
         return () => {
-            ctx.revert();
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (ctx) ctx.revert();
         };
-    }, []);
+    }, [isClient]);
 
     return (
         <div ref={pageRef}>
