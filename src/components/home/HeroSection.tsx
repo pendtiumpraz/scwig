@@ -116,21 +116,23 @@ export default function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
             </div>
 
-            {/* Gold Particles Effect */}
-            <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-                {[...Array(20)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="absolute w-1 h-1 bg-[#D4AF37] rounded-full opacity-30 animate-float"
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 5}s`,
-                            animationDuration: `${3 + Math.random() * 4}s`,
-                        }}
-                    />
-                ))}
-            </div>
+            {/* Gold Particles Effect - Only render on client to avoid hydration mismatch */}
+            {isClient && (
+                <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+                    {[...Array(20)].map((_, i) => (
+                        <div
+                            key={i}
+                            className="absolute w-1 h-1 bg-[#D4AF37] rounded-full opacity-30 animate-float"
+                            style={{
+                                left: `${((i * 17) % 100)}%`,
+                                top: `${((i * 23) % 100)}%`,
+                                animationDelay: `${(i * 0.25) % 5}s`,
+                                animationDuration: `${3 + (i % 4)}s`,
+                            }}
+                        />
+                    ))}
+                </div>
+            )}
 
             {/* Content */}
             <div className="hero-content relative z-20 text-center px-4 max-w-5xl mx-auto">
