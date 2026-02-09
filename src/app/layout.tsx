@@ -3,6 +3,7 @@ import { Playfair_Display, Cormorant_Garamond, Inter, Cinzel } from "next/font/g
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ClientProviders from "@/components/ClientProviders";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -49,10 +50,13 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${playfair.variable} ${cormorant.variable} ${inter.variable} ${cinzel.variable} antialiased min-h-screen flex flex-col`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <ClientProviders>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </ClientProviders>
       </body>
     </html>
   );
 }
+
