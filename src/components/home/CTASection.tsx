@@ -1,37 +1,62 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function CTASection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.fromTo(
-                ".cta-content > *",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    stagger: 0.15,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-        }, sectionRef);
-
-        return () => ctx.revert();
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (!isClient || !sectionRef.current) return;
+
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
+
+        const initAnimations = async () => {
+            if (!mounted || !sectionRef.current) return;
+
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !sectionRef.current) return;
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".cta-content > *",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.15,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 80%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }, sectionRef);
+        };
+
+        initAnimations();
+
+        return () => {
+            mounted = false;
+            if (ctx) ctx.revert();
+        };
+    }, [isClient]);
 
     return (
         <section

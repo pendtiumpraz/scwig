@@ -1,56 +1,79 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutPreview() {
     const sectionRef = useRef<HTMLElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Image reveal animation
-            gsap.fromTo(
-                ".about-image",
-                { x: -100, opacity: 0 },
-                {
-                    x: 0,
-                    opacity: 1,
-                    duration: 1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 70%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-
-            // Content reveal animation
-            gsap.fromTo(
-                ".about-content > *",
-                { x: 50, opacity: 0 },
-                {
-                    x: 0,
-                    opacity: 1,
-                    stagger: 0.15,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 70%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-        }, sectionRef);
-
-        return () => ctx.revert();
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (!isClient || !sectionRef.current) return;
+
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
+
+        const initAnimations = async () => {
+            if (!mounted || !sectionRef.current) return;
+
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !sectionRef.current) return;
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".about-image",
+                    { x: -100, opacity: 0 },
+                    {
+                        x: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 70%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+
+                gsap.fromTo(
+                    ".about-content > *",
+                    { x: 50, opacity: 0 },
+                    {
+                        x: 0,
+                        opacity: 1,
+                        stagger: 0.15,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 70%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }, sectionRef);
+        };
+
+        initAnimations();
+
+        return () => {
+            mounted = false;
+            if (ctx) ctx.revert();
+        };
+    }, [isClient]);
 
     return (
         <section ref={sectionRef} className="section-padding bg-[#0D0D0D]">
@@ -65,11 +88,9 @@ export default function AboutPreview() {
                                 fill
                                 className="object-cover"
                             />
-                            {/* Gold Frame */}
                             <div className="absolute inset-4 border border-[#D4AF37]/30 pointer-events-none" />
                         </div>
 
-                        {/* Floating Badge */}
                         <div className="absolute -bottom-6 -right-6 lg:bottom-8 lg:-right-8 bg-[#D4AF37] p-6 lg:p-8">
                             <p className="font-display text-4xl lg:text-5xl text-[#0D0D0D] font-bold">
                                 15+
@@ -79,7 +100,6 @@ export default function AboutPreview() {
                             </p>
                         </div>
 
-                        {/* Corner Decoration */}
                         <div className="absolute -top-4 -left-4 w-16 h-16 border-l-2 border-t-2 border-[#D4AF37]" />
                     </div>
 

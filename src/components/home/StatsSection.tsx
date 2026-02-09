@@ -1,10 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useEffect, useRef, useState } from "react";
 
 const stats = [
     { number: 15, suffix: "+", label: "Years Experience" },
@@ -16,21 +12,61 @@ const stats = [
 export default function StatsSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const numbersRef = useRef<(HTMLSpanElement | null)[]>([]);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Animate numbers counting up
-            numbersRef.current.forEach((el, index) => {
-                if (!el) return;
+        setIsClient(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isClient || !sectionRef.current) return;
+
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
+
+        const initAnimations = async () => {
+            if (!mounted || !sectionRef.current) return;
+
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !sectionRef.current) return;
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                numbersRef.current.forEach((el, index) => {
+                    if (!el) return;
+
+                    gsap.fromTo(
+                        el,
+                        { innerText: 0 },
+                        {
+                            innerText: stats[index].number,
+                            duration: 2,
+                            ease: "power2.out",
+                            snap: { innerText: 1 },
+                            scrollTrigger: {
+                                trigger: sectionRef.current,
+                                start: "top 80%",
+                                toggleActions: "play none none reverse",
+                            },
+                        }
+                    );
+                });
 
                 gsap.fromTo(
-                    el,
-                    { innerText: 0 },
+                    ".stat-item",
+                    { y: 50, opacity: 0 },
                     {
-                        innerText: stats[index].number,
-                        duration: 2,
-                        ease: "power2.out",
-                        snap: { innerText: 1 },
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.2,
+                        duration: 0.8,
+                        ease: "power3.out",
                         scrollTrigger: {
                             trigger: sectionRef.current,
                             start: "top 80%",
@@ -38,29 +74,16 @@ export default function StatsSection() {
                         },
                     }
                 );
-            });
+            }, sectionRef);
+        };
 
-            // Animate the whole section
-            gsap.fromTo(
-                ".stat-item",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    stagger: 0.2,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-        }, sectionRef);
+        initAnimations();
 
-        return () => ctx.revert();
-    }, []);
+        return () => {
+            mounted = false;
+            if (ctx) ctx.revert();
+        };
+    }, [isClient]);
 
     return (
         <section
@@ -89,7 +112,6 @@ export default function StatsSection() {
                             key={stat.label}
                             className="stat-item text-center relative group"
                         >
-                            {/* Divider between items (except last) */}
                             {index < stats.length - 1 && (
                                 <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1px] h-16 bg-[#D4AF37]/20" />
                             )}

@@ -1,11 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const products = [
     {
@@ -43,67 +39,93 @@ const products = [
 export default function ProductShowcase() {
     const sectionRef = useRef<HTMLElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Title animation
-            gsap.fromTo(
-                ".showcase-title",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-
-            // Horizontal scroll effect
-            if (scrollContainerRef.current && window.innerWidth >= 1024) {
-                const scrollWidth =
-                    scrollContainerRef.current.scrollWidth -
-                    scrollContainerRef.current.offsetWidth;
-
-                gsap.to(scrollContainerRef.current, {
-                    x: -scrollWidth,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 20%",
-                        end: `+=${scrollWidth}`,
-                        scrub: 1,
-                        pin: true,
-                        anticipatePin: 1,
-                    },
-                });
-            }
-
-            // Cards animation for mobile
-            gsap.fromTo(
-                ".product-card",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    stagger: 0.1,
-                    duration: 0.6,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: ".products-container",
-                        start: "top 80%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-        }, sectionRef);
-
-        return () => ctx.revert();
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (!isClient || !sectionRef.current) return;
+
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
+
+        const initAnimations = async () => {
+            if (!mounted || !sectionRef.current) return;
+
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !sectionRef.current) return;
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".showcase-title",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 80%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+
+                if (scrollContainerRef.current && window.innerWidth >= 1024) {
+                    const scrollWidth =
+                        scrollContainerRef.current.scrollWidth -
+                        scrollContainerRef.current.offsetWidth;
+
+                    gsap.to(scrollContainerRef.current, {
+                        x: -scrollWidth,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 20%",
+                            end: `+=${scrollWidth}`,
+                            scrub: 1,
+                            pin: true,
+                            anticipatePin: 1,
+                        },
+                    });
+                }
+
+                gsap.fromTo(
+                    ".product-card",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        duration: 0.6,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: ".products-container",
+                            start: "top 80%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }, sectionRef);
+        };
+
+        initAnimations();
+
+        return () => {
+            mounted = false;
+            if (ctx) ctx.revert();
+        };
+    }, [isClient]);
 
     return (
         <section ref={sectionRef} className="section-padding bg-[#0D0D0D] overflow-hidden">
@@ -146,13 +168,10 @@ export default function ProductShowcase() {
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
 
-                                {/* Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent opacity-60" />
 
-                                {/* Gold Border on Hover */}
                                 <div className="absolute inset-0 border-2 border-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                {/* Number Badge */}
                                 <div className="absolute top-4 left-4 w-10 h-10 bg-[#D4AF37] flex items-center justify-center">
                                     <span className="font-display text-[#0D0D0D] font-bold">
                                         {String(index + 1).padStart(2, "0")}

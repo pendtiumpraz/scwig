@@ -2,11 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaStar, FaChevronLeft, FaChevronRight, FaQuoteLeft } from "react-icons/fa";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
     {
@@ -60,28 +56,57 @@ export default function Testimonials() {
     const sectionRef = useRef<HTMLElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.fromTo(
-                ".testimonial-content",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 70%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-        }, sectionRef);
-
-        return () => ctx.revert();
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (!isClient || !sectionRef.current) return;
+
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
+
+        const initAnimations = async () => {
+            if (!mounted || !sectionRef.current) return;
+
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !sectionRef.current) return;
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".testimonial-content",
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 70%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }, sectionRef);
+        };
+
+        initAnimations();
+
+        return () => {
+            mounted = false;
+            if (ctx) ctx.revert();
+        };
+    }, [isClient]);
 
     // Auto-slide timer
     useEffect(() => {
@@ -208,8 +233,8 @@ export default function Testimonials() {
                                     }
                                 }}
                                 className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                        ? "w-8 bg-[#D4AF37]"
-                                        : "bg-[#D4AF37]/30 hover:bg-[#D4AF37]/50"
+                                    ? "w-8 bg-[#D4AF37]"
+                                    : "bg-[#D4AF37]/30 hover:bg-[#D4AF37]/50"
                                     }`}
                                 aria-label={`Go to testimonial ${index + 1}`}
                             />

@@ -1,12 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
     const heroRef = useRef<HTMLElement>(null);
@@ -14,63 +10,92 @@ export default function HeroSection() {
     const subtitleRef = useRef<HTMLParagraphElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
     const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Initial animation
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-            tl.fromTo(
-                titleRef.current,
-                { y: 100, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1.2 }
-            )
-                .fromTo(
-                    subtitleRef.current,
-                    { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 1 },
-                    "-=0.6"
-                )
-                .fromTo(
-                    ctaRef.current,
-                    { y: 30, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.8 },
-                    "-=0.4"
-                )
-                .fromTo(
-                    scrollIndicatorRef.current,
-                    { opacity: 0 },
-                    { opacity: 1, duration: 0.6 },
-                    "-=0.2"
-                );
-
-            // Parallax effect on scroll
-            gsap.to(".hero-bg", {
-                yPercent: 30,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                },
-            });
-
-            // Fade out content on scroll
-            gsap.to(".hero-content", {
-                opacity: 0,
-                y: -50,
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: "center center",
-                    end: "bottom top",
-                    scrub: true,
-                },
-            });
-        }, heroRef);
-
-        return () => ctx.revert();
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (!isClient || !heroRef.current) return;
+
+        let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
+
+        const initAnimations = async () => {
+            if (!mounted || !heroRef.current) return;
+
+            const gsapModule = await import("gsap");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !heroRef.current) return;
+
+            const gsap = gsapModule.default;
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            ctx = gsap.context(() => {
+                // Initial animation
+                const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+                tl.fromTo(
+                    titleRef.current,
+                    { y: 100, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 1.2 }
+                )
+                    .fromTo(
+                        subtitleRef.current,
+                        { y: 50, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 1 },
+                        "-=0.6"
+                    )
+                    .fromTo(
+                        ctaRef.current,
+                        { y: 30, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.8 },
+                        "-=0.4"
+                    )
+                    .fromTo(
+                        scrollIndicatorRef.current,
+                        { opacity: 0 },
+                        { opacity: 1, duration: 0.6 },
+                        "-=0.2"
+                    );
+
+                // Parallax effect on scroll
+                gsap.to(".hero-bg", {
+                    yPercent: 30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+
+                // Fade out content on scroll
+                gsap.to(".hero-content", {
+                    opacity: 0,
+                    y: -50,
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: "center center",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }, heroRef);
+        };
+
+        initAnimations();
+
+        return () => {
+            mounted = false;
+            if (ctx) ctx.revert();
+        };
+    }, [isClient]);
 
     return (
         <section

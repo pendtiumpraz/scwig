@@ -38,13 +38,18 @@ export default function AboutPage() {
     }, []);
 
     useEffect(() => {
-        if (!isClient) return;
+        if (!isClient || !pageRef.current) return;
 
         let ctx: ReturnType<typeof import("gsap").gsap.context> | null = null;
+        let mounted = true;
 
         const initAnimations = async () => {
+            if (!mounted || !pageRef.current) return;
+
             const gsapModule = await import("gsap");
             const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            if (!mounted || !pageRef.current) return;
 
             const gsap = gsapModule.default;
             const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
@@ -123,6 +128,7 @@ export default function AboutPage() {
         initAnimations();
 
         return () => {
+            mounted = false;
             if (ctx) ctx.revert();
         };
     }, [isClient]);
