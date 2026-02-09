@@ -94,8 +94,7 @@ export default function ProductShowcase() {
                             start: "top 20%",
                             end: `+=${scrollWidth}`,
                             scrub: 1,
-                            pin: true,
-                            anticipatePin: 1,
+                            // Removed pin to prevent hydration issues
                         },
                     });
                 }
