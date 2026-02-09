@@ -6,8 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaEye, FaBullseye, FaHeart, FaStar, FaGem, FaLightbulb } from "react-icons/fa";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const timeline = [
     { year: "2009", title: "Company Founded", description: "Started as a small atelier with a passion for beauty" },
     { year: "2012", title: "First Flagship Store", description: "Opened our first premium showroom in Jakarta" },
@@ -38,6 +36,8 @@ export default function AboutPage() {
 
     useEffect(() => {
         if (typeof window === "undefined") return;
+
+        gsap.registerPlugin(ScrollTrigger);
 
         const ctx = gsap.context(() => {
             // Hero animation

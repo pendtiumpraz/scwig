@@ -7,8 +7,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaCut, FaPalette, FaTools, FaHeart, FaGraduationCap, FaHandshake, FaCheck } from "react-icons/fa";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const services = [
     {
         id: "custom",
@@ -119,6 +117,8 @@ export default function ServicesPage() {
 
     useEffect(() => {
         if (typeof window === "undefined") return;
+
+        gsap.registerPlugin(ScrollTrigger);
 
         const ctx = gsap.context(() => {
             // Hero animation

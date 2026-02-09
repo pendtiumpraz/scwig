@@ -6,8 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HiLocationMarker, HiPhone, HiMail, HiClock, HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { FaWhatsapp, FaInstagram, FaFacebookF, FaYoutube, FaTiktok } from "react-icons/fa";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const faqs = [
     {
         question: "How do I choose the right wig for my face shape?",
@@ -65,6 +63,8 @@ export default function ContactPage() {
 
     useEffect(() => {
         if (typeof window === "undefined") return;
+
+        gsap.registerPlugin(ScrollTrigger);
 
         const ctx = gsap.context(() => {
             // Hero animation

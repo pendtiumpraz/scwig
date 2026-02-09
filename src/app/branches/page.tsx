@@ -8,8 +8,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HiLocationMarker, HiPhone, HiClock, HiCheck, HiArrowRight } from "react-icons/hi";
 import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const branches = [
     {
         id: "jakarta",
@@ -103,6 +101,8 @@ export default function BranchesPage() {
 
     useEffect(() => {
         if (typeof window === "undefined") return;
+
+        gsap.registerPlugin(ScrollTrigger);
 
         const ctx = gsap.context(() => {
             // Hero animation
