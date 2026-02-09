@@ -5,6 +5,7 @@ import { HiLocationMarker, HiPhone, HiMail } from "react-icons/hi";
 const quickLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
+    { name: "Our Products", href: "/products" },
     { name: "Our Services", href: "/services" },
     { name: "Branch Locations", href: "/branches" },
     { name: "Contact", href: "/contact" },

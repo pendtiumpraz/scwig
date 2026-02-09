@@ -8,6 +8,7 @@ import { HiMenuAlt3, HiX } from "react-icons/hi";
 const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
+    { name: "Products", href: "/products" },
     { name: "Services", href: "/services" },
     { name: "Branches", href: "/branches" },
     { name: "Contact", href: "/contact" },
@@ -29,8 +30,8 @@ export default function Header() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                    ? "bg-[#0D0D0D]/95 backdrop-blur-md py-4 shadow-lg shadow-black/20"
-                    : "bg-transparent py-6"
+                ? "bg-[#0D0D0D]/95 backdrop-blur-md py-4 shadow-lg shadow-black/20"
+                : "bg-transparent py-6"
                 }`}
         >
             <div className="container-custom">
@@ -55,8 +56,8 @@ export default function Header() {
                                 <Link
                                     href={link.href}
                                     className={`relative font-medium text-sm tracking-wider uppercase transition-colors duration-300 ${pathname === link.href
-                                            ? "text-[#D4AF37]"
-                                            : "text-white/80 hover:text-[#D4AF37]"
+                                        ? "text-[#D4AF37]"
+                                        : "text-white/80 hover:text-[#D4AF37]"
                                         }`}
                                 >
                                     {link.name}
@@ -90,8 +91,8 @@ export default function Header() {
                 {/* Mobile Menu */}
                 <div
                     className={`lg:hidden fixed inset-0 top-[72px] bg-[#0D0D0D]/98 backdrop-blur-lg transition-all duration-500 ${isMobileMenuOpen
-                            ? "opacity-100 visible"
-                            : "opacity-0 invisible pointer-events-none"
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible pointer-events-none"
                         }`}
                 >
                     <ul className="flex flex-col items-center justify-center h-full gap-8">
@@ -110,8 +111,8 @@ export default function Header() {
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                     className={`font-display text-3xl tracking-wider transition-colors ${pathname === link.href
-                                            ? "text-[#D4AF37]"
-                                            : "text-white hover:text-[#D4AF37]"
+                                        ? "text-[#D4AF37]"
+                                        : "text-white hover:text-[#D4AF37]"
                                         }`}
                                 >
                                     {link.name}
