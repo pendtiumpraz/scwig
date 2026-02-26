@@ -1,29 +1,26 @@
 import Link from "next/link";
-import { FaInstagram, FaFacebookF, FaYoutube, FaTiktok, FaWhatsapp } from "react-icons/fa";
+import { FaLinkedinIn, FaGlobeAsia } from "react-icons/fa";
 import { HiLocationMarker, HiPhone, HiMail } from "react-icons/hi";
 
 const quickLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Our Products", href: "/products" },
-    { name: "Our Services", href: "/services" },
-    { name: "Branch Locations", href: "/branches" },
-    { name: "Contact", href: "/contact" },
+    { name: "Engineering DNA", href: "/about" },
+    { name: "Engineered Products", href: "/products" },
+    { name: "Capabilities", href: "/services" },
+    { name: "Technical Inquiry", href: "/contact" },
 ];
 
-const services = [
-    { name: "Custom Wig Creation", href: "/services#custom" },
-    { name: "Styling & Consultation", href: "/services#styling" },
-    { name: "Wig Maintenance", href: "/services#maintenance" },
-    { name: "Medical Wigs", href: "/services#medical" },
-    { name: "Training Academy", href: "/services#training" },
+const capabilities = [
+    { name: "Cap Engineering Technology", href: "/services#cap-engineering" },
+    { name: "Material Engineering", href: "/services#material-engineering" },
+    { name: "Manufacturing System", href: "/services#manufacturing" },
+    { name: "Quality Engineering", href: "/services#quality" },
+    { name: "OEM Solutions", href: "/services#oem" },
 ];
 
 const socialLinks = [
-    { icon: FaInstagram, href: "https://instagram.com/scwig.official", label: "Instagram" },
-    { icon: FaFacebookF, href: "https://facebook.com/scwig", label: "Facebook" },
-    { icon: FaYoutube, href: "https://youtube.com/scwig", label: "YouTube" },
-    { icon: FaTiktok, href: "https://tiktok.com/@scwig", label: "TikTok" },
+    { icon: FaLinkedinIn, href: "#", label: "LinkedIn" },
+    { icon: FaGlobeAsia, href: "#", label: "Global Network" },
 ];
 
 export default function Footer() {
@@ -37,17 +34,19 @@ export default function Footer() {
                         <Link href="/" className="inline-flex items-center gap-3 mb-6">
                             <span className="text-[#D4AF37] text-2xl">✦</span>
                             <div>
-                                <h2 className="text-2xl tracking-[0.3em] text-white" style={{ fontFamily: 'Cinzel, serif' }}>
-                                    SCWIG
+                                <h2 className="text-xl tracking-[0.2em] text-white" style={{ fontFamily: 'Cinzel, serif' }}>
+                                    PT NOVAKOR<br />INDONESIA
                                 </h2>
-                                <p className="text-[10px] tracking-[0.2em] text-[#A0A0A0] uppercase">
-                                    Premium Wigs
-                                </p>
                             </div>
                         </Link>
-                        <p className="text-[#A0A0A0] text-sm leading-relaxed mb-6">
-                            Elegance Reimagined. Since 2009, we have been crafting premium wigs
-                            that empower individuals to express their unique beauty and confidence.
+                        <p className="text-[#A0A0A0] text-sm leading-relaxed mb-6 font-medium">
+                            <span className="text-[#D4AF37]">Engineering-Based</span><br />
+                            OEM Wig Manufacturer
+                        </p>
+                        <p className="text-[#A0A0A0] text-sm leading-relaxed mb-6 italic">
+                            Designed with precision.<br />
+                            Manufactured with system.<br />
+                            Delivered with consistency.
                         </p>
                         <div className="flex gap-3">
                             {socialLinks.map((social) => (
@@ -56,7 +55,7 @@ export default function Footer() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-full border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0D0D0D] transition-all duration-300"
+                                    className="w-10 h-10 rounded-sm border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0D0D0D] transition-all duration-300"
                                     aria-label={social.label}
                                 >
                                     <social.icon size={16} />
@@ -67,8 +66,8 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-lg tracking-[0.2em] text-white mb-6 uppercase" style={{ fontFamily: 'Cinzel, serif' }}>
-                            Quick Links
+                        <h3 className="text-sm tracking-[0.2em] text-white mb-6 uppercase" style={{ fontFamily: 'Cinzel, serif' }}>
+                            Navigation
                         </h3>
                         <ul className="space-y-3">
                             {quickLinks.map((link) => (
@@ -86,11 +85,11 @@ export default function Footer() {
 
                     {/* Services */}
                     <div>
-                        <h3 className="text-lg tracking-[0.2em] text-white mb-6 uppercase" style={{ fontFamily: 'Cinzel, serif' }}>
-                            Services
+                        <h3 className="text-sm tracking-[0.2em] text-white mb-6 uppercase" style={{ fontFamily: 'Cinzel, serif' }}>
+                            Capabilities
                         </h3>
                         <ul className="space-y-3">
-                            {services.map((service) => (
+                            {capabilities.map((service) => (
                                 <li key={service.name}>
                                     <Link
                                         href={service.href}
@@ -105,45 +104,34 @@ export default function Footer() {
 
                     {/* Contact Info */}
                     <div>
-                        <h3 className="text-lg tracking-[0.2em] text-white mb-6 uppercase" style={{ fontFamily: 'Cinzel, serif' }}>
-                            Contact Us
+                        <h3 className="text-sm tracking-[0.2em] text-white mb-6 uppercase" style={{ fontFamily: 'Cinzel, serif' }}>
+                            Technical Inquiry
                         </h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
                                 <HiLocationMarker className="text-[#D4AF37] text-lg mt-1 flex-shrink-0" />
                                 <span className="text-[#A0A0A0] text-sm">
-                                    Jl. Sudirman No. 123<br />
-                                    Jakarta Pusat 10220<br />
+                                    Head Office & Manufacturing<br />
+                                    Purbalingga, Central Java<br />
                                     Indonesia
                                 </span>
                             </li>
                             <li className="flex items-center gap-3">
                                 <HiPhone className="text-[#D4AF37] text-lg flex-shrink-0" />
                                 <a
-                                    href="tel:+622112345678"
+                                    href="tel:+622811234567"
                                     className="text-[#A0A0A0] hover:text-[#D4AF37] transition-colors text-sm"
                                 >
-                                    +62 21 1234 5678
-                                </a>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <FaWhatsapp className="text-[#D4AF37] text-lg flex-shrink-0" />
-                                <a
-                                    href="https://wa.me/6281234567890"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#A0A0A0] hover:text-[#D4AF37] transition-colors text-sm"
-                                >
-                                    +62 812 3456 7890
+                                    +62 281 123 4567
                                 </a>
                             </li>
                             <li className="flex items-center gap-3">
                                 <HiMail className="text-[#D4AF37] text-lg flex-shrink-0" />
                                 <a
-                                    href="mailto:info@scwig.com"
+                                    href="mailto:inquiry@novakor.id"
                                     className="text-[#A0A0A0] hover:text-[#D4AF37] transition-colors text-sm"
                                 >
-                                    info@scwig.com
+                                    inquiry@novakor.id
                                 </a>
                             </li>
                         </ul>
@@ -156,14 +144,14 @@ export default function Footer() {
                 <div className="max-w-[1400px] mx-auto px-6 py-6">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <p className="text-[#A0A0A0] text-sm text-center md:text-left">
-                            © 2025 SCWIG. All Rights Reserved.
+                            © {new Date().getFullYear()} PT Novakor Indonesia. Engineering-Based OEM. All Rights Reserved.
                         </p>
                         <div className="flex items-center gap-6 text-sm text-[#A0A0A0]">
                             <Link href="/privacy" className="hover:text-[#D4AF37] transition-colors">
                                 Privacy Policy
                             </Link>
                             <Link href="/terms" className="hover:text-[#D4AF37] transition-colors">
-                                Terms of Service
+                                NDA & Compliance
                             </Link>
                         </div>
                     </div>

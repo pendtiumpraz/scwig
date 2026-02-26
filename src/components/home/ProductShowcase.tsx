@@ -2,37 +2,33 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
     {
-        name: "Natural Hair Wigs",
-        description: "100% human hair for ultimate realism",
+        name: "Full Wig",
+        description: "Structured base design & balance control",
         image: "/images/products/natural-wig.jpg",
     },
     {
-        name: "Fashion Wigs",
-        description: "Bold styles for the fashion-forward",
-        image: "/images/products/fashion-wig.jpg",
-    },
-    {
-        name: "Lace Front Wigs",
-        description: "Seamless, natural-looking hairlines",
+        name: "Lace Wig",
+        description: "Engineered hairline transition technology",
         image: "/images/products/lace-front.jpg",
     },
     {
-        name: "Medical Wigs",
-        description: "Gentle solutions for sensitive needs",
+        name: "Hand-Tied Wig",
+        description: "Precision knotting system for natural movement",
+        image: "/images/products/fashion-wig.jpg",
+    },
+    {
+        name: "Topper",
+        description: "Targeted density engineering for partial coverage",
         image: "/images/products/natural-wig.jpg",
     },
     {
-        name: "Synthetic Wigs",
-        description: "Low maintenance, high style",
+        name: "Toupee",
+        description: "Base strength & durability structure engineering",
         image: "/images/products/fashion-wig.jpg",
-    },
-    {
-        name: "Full Cap Wigs",
-        description: "Complete coverage and comfort",
-        image: "/images/products/lace-front.jpg",
     },
 ];
 
@@ -94,7 +90,6 @@ export default function ProductShowcase() {
                             start: "top 20%",
                             end: `+=${scrollWidth}`,
                             scrub: 1,
-                            // Removed pin to prevent hydration issues
                         },
                     });
                 }
@@ -137,10 +132,10 @@ export default function ProductShowcase() {
                         <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                     </div>
 
-                    <h2 className="section-title mb-4">Our Collection</h2>
+                    <h2 className="section-title mb-4">Engineered Product Portfolio</h2>
                     <p className="section-subtitle max-w-2xl mx-auto">
-                        Discover our extensive range of premium wigs, each crafted with
-                        meticulous attention to detail and designed for every lifestyle.
+                        Every product is not just a fashion item — it is an engineered solution
+                        built with precision construction, material science, and quality assurance.
                     </p>
 
                     <div className="divider-gold mt-8" />
@@ -216,6 +211,13 @@ export default function ProductShowcase() {
                         </div>
                     ))}
                 </div>
+            </div>
+
+            {/* View All Link */}
+            <div className="container-custom text-center mt-12">
+                <Link href="/products" className="btn-outline">
+                    View Full Engineering Portfolio
+                </Link>
             </div>
         </section>
     );

@@ -2,31 +2,30 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { FaEye, FaBullseye, FaHeart, FaStar, FaGem, FaLightbulb } from "react-icons/fa";
+import { HiCog, HiBeaker, HiLibrary, HiCheckCircle, HiLightBulb, HiShieldCheck } from "react-icons/hi";
 
 const timeline = [
-    { year: "2009", title: "Company Founded", description: "Started as a small atelier with a passion for beauty" },
-    { year: "2012", title: "First Flagship Store", description: "Opened our first premium showroom in Jakarta" },
-    { year: "2015", title: "Custom Wig Line", description: "Launched our signature custom wig creation service" },
-    { year: "2018", title: "5 Branches", description: "Expanded to 5 locations across major cities" },
-    { year: "2020", title: "Online Launch", description: "Introduced virtual consultations and online ordering" },
-    { year: "2023", title: "10+ Branches", description: "Now serving customers from 10+ locations nationwide" },
-    { year: "2024", title: "International", description: "Partnered with global wig material suppliers" },
+    { year: "2000", title: "Engineering Foundation", description: "Established as a specialized wig manufacturing engineering facility" },
+    { year: "2005", title: "ISO Certification", description: "Achieved international quality management standards" },
+    { year: "2010", title: "Material Innovation Labs", description: "Launched dedicated R&D facility for synthetic fiber analysis" },
+    { year: "2015", title: "Automated Production", description: "Integrated semi-automated cap construction workflows" },
+    { year: "2020", title: "Global OEM Expansion", description: "Expanded capacity to serve global top-tier wig brands" },
+    { year: "2024", title: "Advanced Quality Gates", description: "Implemented multi-stage digital tracking and QA simulation" },
 ];
 
 const values = [
-    { icon: FaStar, title: "Excellence", description: "Uncompromising quality in every product we create" },
-    { icon: FaHeart, title: "Integrity", description: "Honest and transparent practices in all we do" },
-    { icon: FaLightbulb, title: "Innovation", description: "Continuous improvement and creative solutions" },
-    { icon: FaGem, title: "Empathy", description: "Understanding and caring for customer needs" },
-    { icon: FaEye, title: "Elegance", description: "Beauty and sophistication in every detail" },
+    { icon: HiCog, title: "Precision", description: "Calculated accuracy in every construction step" },
+    { icon: HiLibrary, title: "System Workflow", description: "Standardized processes ensuring absolute consistency" },
+    { icon: HiShieldCheck, title: "Traceability", description: "Transparent tracking from raw material to finished product" },
+    { icon: HiLightBulb, title: "Continuous Improvement", description: "Iterative upgrades to manufacturing efficiency" },
+    { icon: HiCheckCircle, title: "Compliance", description: "Strict adherence to international manufacturing standards" },
 ];
 
-const team = [
-    { name: "Diana Kusuma", role: "Founder & CEO", image: "/images/testimonials/customer-1.jpg" },
-    { name: "Reza Pratama", role: "Head of Design", image: "/images/testimonials/customer-3.jpg" },
-    { name: "Linda Hartono", role: "Master Stylist", image: "/images/testimonials/customer-2.jpg" },
-    { name: "Budi Santoso", role: "Operations Director", image: "/images/testimonials/customer-3.jpg" },
+const capabilities = [
+    { name: "Cap Structural Engineering", metric: "99.8%", label: "Tolerance Accuracy" },
+    { name: "Fiber Tensile Strength", metric: "ISO", label: "Certified Testing" },
+    { name: "Production Capacity", metric: "500k", label: "Units Annually" },
+    { name: "Quality Checkpoints", metric: "12-Gate", label: "Verification System" },
 ];
 
 export default function AboutPage() {
@@ -113,13 +112,13 @@ export default function AboutPage() {
                     }
                 );
 
-                // Team
+                // Metrics
                 gsap.fromTo(
-                    ".team-card",
+                    ".metric-card",
                     { y: 50, opacity: 0 },
                     {
                         y: 0, opacity: 1, stagger: 0.15, duration: 0.6, ease: "power3.out",
-                        scrollTrigger: { trigger: ".team-section", start: "top 70%" },
+                        scrollTrigger: { trigger: ".metrics-section", start: "top 70%" },
                     }
                 );
             }, pageRef);
@@ -138,16 +137,29 @@ export default function AboutPage() {
             {/* Hero Section */}
             <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-[#0D0D0D]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/5 to-transparent" />
 
-                <div className="about-hero-content relative z-10 text-center px-4">
+                {/* Engineering Pattern */}
+                <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden opacity-5">
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            backgroundImage: `
+                                linear-gradient(rgba(212,175,55,1) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)
+                            `,
+                            backgroundSize: "40px 40px",
+                        }}
+                    />
+                </div>
+
+                <div className="about-hero-content relative z-20 text-center px-4">
                     <div className="flex items-center justify-center gap-4 mb-4">
                         <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                        <span className="text-[#D4AF37]">✦</span>
+                        <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em]">Engineering DNA</span>
                         <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                     </div>
-                    <h1 className="font-display text-5xl md:text-7xl text-white mb-4">About SCWIG</h1>
-                    <p className="font-elegant text-xl md:text-2xl text-[#F4E4BC]">Crafting Beauty Since 2009</p>
+                    <h1 className="font-display text-4xl md:text-6xl text-white mb-4">PT Novakor Indonesia</h1>
+                    <p className="font-elegant text-xl md:text-2xl text-[#F4E4BC]">Engineered Precision. Scalable Production.</p>
                 </div>
             </section>
 
@@ -157,7 +169,7 @@ export default function AboutPage() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="story-image relative">
                             <div className="relative aspect-[4/5] overflow-hidden">
-                                <Image src="/images/about/about-story.jpg" alt="Our Story" fill className="object-cover" />
+                                <Image src="/images/about/about-story.jpg" alt="PT Novakor Engineering Facility" fill className="object-cover" />
                                 <div className="absolute inset-4 border border-[#D4AF37]/30" />
                             </div>
                             <div className="absolute -top-4 -left-4 w-16 h-16 border-l-2 border-t-2 border-[#D4AF37]" />
@@ -167,28 +179,27 @@ export default function AboutPage() {
                         <div className="story-content">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                                <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em]">Our Story</span>
+                                <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em]">Corporate Profile</span>
                             </div>
 
-                            <h2 className="section-title mb-6">A Journey of <span className="text-gold-gradient">Passion</span></h2>
+                            <h2 className="section-title mb-6">A Legacy of <span className="text-gold-gradient">Manufacturing Science</span></h2>
 
                             <p className="text-[#A0A0A0] text-lg leading-relaxed mb-6">
-                                SCWIG was born from a simple yet powerful belief: every person deserves to feel confident
-                                and beautiful. In 2009, our founder Diana Kusuma started this journey from a small atelier
-                                in Jakarta, driven by her passion for helping others rediscover their confidence.
+                                PT Novakor Indonesia is a specialized OEM manufacturer that approaches wig production
+                                not merely as an art, but as a rigid engineering discipline.
                             </p>
 
                             <p className="text-[#A0A0A0] leading-relaxed mb-6">
-                                What began as a one-woman operation has grown into Indonesia&apos;s most trusted premium wig
-                                provider. Today, we serve thousands of clients across the nation, each with their unique
-                                story and needs. From cancer patients seeking comfort to fashion enthusiasts exploring
-                                new looks, we are honored to be part of their transformation journey.
+                                We operate on system-based manufacturing principles. From raw fiber inspection
+                                to final cap assembly, every process is governed by standardized workflows,
+                                precise environmental controls, and measurable QA checkpoints. We don't guess;
+                                we measure, simulate, and verify.
                             </p>
 
                             <p className="text-[#A0A0A0] leading-relaxed">
-                                Our commitment remains unchanged: to provide the highest quality wigs with personalized
-                                service that makes every client feel special. We believe in the transformative power of
-                                confidence, and we are dedicated to helping you discover yours.
+                                Our facility is trusted by global top-tier brands because we eliminate production
+                                variance. Through continuous process improvement and comprehensive capacity modeling,
+                                we ensure that unit 1 and unit 10,000 are identical in structure, balance, and durability.
                             </p>
                         </div>
                     </div>
@@ -204,7 +215,7 @@ export default function AboutPage() {
                             <span className="text-[#D4AF37]">✦</span>
                             <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                         </div>
-                        <h2 className="section-title">Our Purpose</h2>
+                        <h2 className="section-title">Corporate Directive</h2>
                         <div className="divider-gold mt-6" />
                     </div>
 
@@ -213,14 +224,14 @@ export default function AboutPage() {
                         <div className="vision-card glass-gold p-8 lg:p-12">
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-14 h-14 bg-[#D4AF37] flex items-center justify-center">
-                                    <FaEye className="text-[#0D0D0D] text-2xl" />
+                                    <HiCog className="text-[#0D0D0D] text-3xl" />
                                 </div>
                                 <h3 className="font-display text-2xl text-white">Our Vision</h3>
                             </div>
                             <p className="text-[#A0A0A0] text-lg leading-relaxed">
-                                To become Indonesia&apos;s most trusted premium wig provider, empowering individuals
-                                to express their unique beauty and confidence through exceptional quality wigs
-                                and personalized service.
+                                To become a globally trusted engineering-based OEM partner in the hair industry,
+                                setting the standard for precision, consistency, and technological integration
+                                in wig manufacturing.
                             </p>
                         </div>
 
@@ -228,23 +239,27 @@ export default function AboutPage() {
                         <div className="mission-card glass-gold p-8 lg:p-12">
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-14 h-14 bg-[#D4AF37] flex items-center justify-center">
-                                    <FaBullseye className="text-[#0D0D0D] text-2xl" />
+                                    <HiCheckCircle className="text-[#0D0D0D] text-3xl" />
                                 </div>
                                 <h3 className="font-display text-2xl text-white">Our Mission</h3>
                             </div>
-                            <ul className="space-y-4">
-                                {[
-                                    "Provide highest quality wigs using premium materials",
-                                    "Deliver personalized consultation and styling services",
-                                    "Create inclusive beauty solutions for all needs",
-                                    "Train and develop skilled wig professionals",
-                                    "Build lasting relationships with our customers",
-                                ].map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-[#A0A0A0]">
-                                        <span className="text-[#D4AF37] mt-1">✦</span>
-                                        <span>{item}</span>
-                                    </li>
-                                ))}
+                            <ul className="space-y-4 text-sm md:text-base">
+                                <li className="flex items-start gap-3 text-[#A0A0A0]">
+                                    <span className="text-[#D4AF37] mt-1">✦</span>
+                                    <span>Develop engineered cap structures</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-[#A0A0A0]">
+                                    <span className="text-[#D4AF37] mt-1">✦</span>
+                                    <span>Apply material innovation and science</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-[#A0A0A0]">
+                                    <span className="text-[#D4AF37] mt-1">✦</span>
+                                    <span>Maintain production precision and system compliance</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-[#A0A0A0]">
+                                    <span className="text-[#D4AF37] mt-1">✦</span>
+                                    <span>Deliver scalable, consistent OEM solutions globally</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -260,8 +275,8 @@ export default function AboutPage() {
                             <span className="text-[#D4AF37]">✦</span>
                             <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                         </div>
-                        <h2 className="section-title">Our Core Values</h2>
-                        <p className="section-subtitle mt-4">The principles that guide everything we do</p>
+                        <h2 className="section-title">Engineering Ethics</h2>
+                        <p className="section-subtitle mt-4">The principles that govern our factory floor</p>
                         <div className="divider-gold mt-6" />
                     </div>
 
@@ -269,10 +284,10 @@ export default function AboutPage() {
                         {values.map((value) => (
                             <div key={value.title} className="value-card card-elegant p-6 text-center group">
                                 <div className="w-16 h-16 mx-auto mb-4 border border-[#D4AF37]/30 flex items-center justify-center group-hover:bg-[#D4AF37] transition-colors">
-                                    <value.icon className="text-[#D4AF37] text-2xl group-hover:text-[#0D0D0D] transition-colors" />
+                                    <value.icon className="text-[#D4AF37] text-3xl group-hover:text-[#0D0D0D] transition-colors" />
                                 </div>
                                 <h3 className="font-display text-lg text-white mb-2">{value.title}</h3>
-                                <p className="text-[#A0A0A0] text-sm">{value.description}</p>
+                                <p className="text-[#A0A0A0] text-xs">{value.description}</p>
                             </div>
                         ))}
                     </div>
@@ -288,8 +303,8 @@ export default function AboutPage() {
                             <span className="text-[#D4AF37]">✦</span>
                             <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                         </div>
-                        <h2 className="section-title">Our Journey</h2>
-                        <p className="section-subtitle mt-4">Milestones that shaped who we are</p>
+                        <h2 className="section-title">System Evolution</h2>
+                        <p className="section-subtitle mt-4">Development of our manufacturing capabilities</p>
                         <div className="divider-gold mt-6" />
                     </div>
 
@@ -308,9 +323,9 @@ export default function AboutPage() {
 
                                 {/* Content */}
                                 <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}>
-                                    <span className="text-[#D4AF37] font-display text-2xl">{item.year}</span>
+                                    <span className="text-[#D4AF37] font-display text-2xl tracking-wider">{item.year}</span>
                                     <h3 className="font-display text-xl text-white mt-1">{item.title}</h3>
-                                    <p className="text-[#A0A0A0] mt-2">{item.description}</p>
+                                    <p className="text-[#A0A0A0] mt-2 text-sm">{item.description}</p>
                                 </div>
                             </div>
                         ))}
@@ -318,8 +333,8 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Team */}
-            <section className="team-section section-padding bg-[#0D0D0D]">
+            {/* Metrics */}
+            <section className="metrics-section section-padding bg-[#0D0D0D]">
                 <div className="container-custom">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-4">
@@ -327,20 +342,16 @@ export default function AboutPage() {
                             <span className="text-[#D4AF37]">✦</span>
                             <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                         </div>
-                        <h2 className="section-title">Meet Our Team</h2>
-                        <p className="section-subtitle mt-4">The experts behind your transformation</p>
+                        <h2 className="section-title">Factory Capacity</h2>
                         <div className="divider-gold mt-6" />
                     </div>
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                        {team.map((member) => (
-                            <div key={member.name} className="team-card text-center group">
-                                <div className="relative aspect-square mb-6 overflow-hidden">
-                                    <Image src={member.image} alt={member.name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-                                    <div className="absolute inset-0 border border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-colors" />
-                                </div>
-                                <h3 className="font-display text-xl text-white group-hover:text-[#D4AF37] transition-colors">{member.name}</h3>
-                                <p className="text-[#A0A0A0] text-sm mt-1">{member.role}</p>
+                        {capabilities.map((cap) => (
+                            <div key={cap.name} className="metric-card text-center group border border-[#D4AF37]/20 p-8 glass">
+                                <p className="font-display text-4xl lg:text-5xl text-[#D4AF37] mb-2">{cap.metric}</p>
+                                <h3 className="font-display text-lg text-white uppercase tracking-widest">{cap.name}</h3>
+                                <p className="text-[#A0A0A0] text-xs mt-2 uppercase tracking-wide">{cap.label}</p>
                             </div>
                         ))}
                     </div>

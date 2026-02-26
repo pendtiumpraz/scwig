@@ -8,6 +8,7 @@ export default function HeroSection() {
     const heroRef = useRef<HTMLElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLParagraphElement>(null);
+    const greetingRef = useRef<HTMLParagraphElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
     const scrollIndicatorRef = useRef<HTMLDivElement>(null);
     const [isClient, setIsClient] = useState(false);
@@ -36,7 +37,6 @@ export default function HeroSection() {
             gsap.registerPlugin(ScrollTrigger);
 
             ctx = gsap.context(() => {
-                // Initial animation
                 const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
                 tl.fromTo(
@@ -51,10 +51,16 @@ export default function HeroSection() {
                         "-=0.6"
                     )
                     .fromTo(
-                        ctaRef.current,
+                        greetingRef.current,
                         { y: 30, opacity: 0 },
                         { y: 0, opacity: 1, duration: 0.8 },
                         "-=0.4"
+                    )
+                    .fromTo(
+                        ctaRef.current,
+                        { y: 30, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.8 },
+                        "-=0.3"
                     )
                     .fromTo(
                         scrollIndicatorRef.current,
@@ -106,31 +112,29 @@ export default function HeroSection() {
             <div className="hero-bg absolute inset-0 z-0">
                 <Image
                     src="/images/hero/hero-main.jpg"
-                    alt="SCWIG Premium Wigs"
+                    alt="PT Novakor Indonesia - Engineering-Based OEM Wig Manufacturing"
                     fill
                     priority
                     className="object-cover object-center"
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/85" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
             </div>
 
-            {/* Gold Particles Effect - Only render on client to avoid hydration mismatch */}
+            {/* Precision Grid Pattern */}
             {isClient && (
-                <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-                    {[...Array(20)].map((_, i) => (
-                        <div
-                            key={i}
-                            className="absolute w-1 h-1 bg-[#D4AF37] rounded-full opacity-30 animate-float"
-                            style={{
-                                left: `${((i * 17) % 100)}%`,
-                                top: `${((i * 23) % 100)}%`,
-                                animationDelay: `${(i * 0.25) % 5}s`,
-                                animationDuration: `${3 + (i % 4)}s`,
-                            }}
-                        />
-                    ))}
+                <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden opacity-10">
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            backgroundImage: `
+                                linear-gradient(rgba(212,175,55,0.3) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(212,175,55,0.3) 1px, transparent 1px)
+                            `,
+                            backgroundSize: "80px 80px",
+                        }}
+                    />
                 </div>
             )}
 
@@ -139,30 +143,41 @@ export default function HeroSection() {
                 {/* Decorative Element */}
                 <div className="flex items-center justify-center gap-4 mb-6">
                     <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                    <span className="text-[#D4AF37] text-2xl">✦</span>
+                    <span className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-medium">
+                        Engineering-Based OEM Manufacturer
+                    </span>
                     <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                 </div>
 
                 <h1
                     ref={titleRef}
-                    className="font-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 tracking-wide"
+                    className="font-display text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-wide leading-tight"
                 >
-                    <span className="text-gold-gradient">Elegance</span> Reimagined
+                    Engineering Beauty Through{" "}
+                    <span className="text-gold-gradient">Precision Manufacturing</span>
                 </h1>
 
                 <p
                     ref={subtitleRef}
-                    className="font-elegant text-xl md:text-2xl lg:text-3xl text-[#F4E4BC] mb-10 tracking-wide"
+                    className="font-elegant text-xl md:text-2xl lg:text-3xl text-[#F4E4BC] mb-6 tracking-wide"
                 >
-                    Premium Wigs for the Extraordinary You
+                    Advanced OEM Wig Engineering & Manufacturing Solutions
+                </p>
+
+                <p
+                    ref={greetingRef}
+                    className="text-[#A0A0A0] text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed"
+                >
+                    Welcome to PT Novakor Indonesia. We are an engineering-driven OEM manufacturer
+                    specializing in precision wig construction, material science, and scalable production systems.
                 </p>
 
                 <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link href="/services" className="btn-gold">
-                        Explore Collection
+                    <Link href="/products" className="btn-gold">
+                        Engineered Products
                     </Link>
                     <Link href="/contact" className="btn-outline">
-                        Book Consultation
+                        Technical Inquiry
                     </Link>
                 </div>
             </div>

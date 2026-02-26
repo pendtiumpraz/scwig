@@ -73,50 +73,50 @@ export default function CTASection() {
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
 
-            {/* Floating Gold Elements */}
-            <div className="absolute top-12 left-12 text-[#D4AF37]/20 text-8xl font-display">✦</div>
-            <div className="absolute bottom-12 right-12 text-[#D4AF37]/20 text-8xl font-display">✦</div>
+            {/* Floating Schematic Elements */}
+            <div className="absolute top-12 left-12 text-[#D4AF37]/10 text-8xl font-display opacity-50">⚙</div>
+            <div className="absolute bottom-12 right-12 text-[#D4AF37]/10 text-8xl font-display opacity-50">🔧</div>
 
             <div className="container-custom relative z-10">
                 <div className="cta-content text-center max-w-3xl mx-auto">
                     {/* Decorative Element */}
                     <div className="flex items-center justify-center gap-4 mb-6">
                         <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                        <span className="text-[#D4AF37] text-2xl">✦</span>
+                        <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em] font-medium">Technical Inquiry</span>
                         <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                     </div>
 
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
-                        Ready for Your <span className="text-gold-gradient">Transformation</span>?
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+                        Ready to Engineer Your <span className="text-gold-gradient">Supply Chain</span>?
                     </h2>
 
                     <p className="font-elegant text-xl text-[#A0A0A0] mb-10 max-w-xl mx-auto">
-                        Book a complimentary consultation with our expert stylists and discover
-                        the perfect wig that matches your unique style and personality.
+                        Submit your technical requirements, material preferences, and estimated MOQ
+                        to initiate a custom OEM engineering consultation with our team.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link href="/contact" className="btn-gold">
-                            Schedule Consultation
+                            Submit Inquiry
                         </Link>
-                        <Link href="/branches" className="btn-outline">
-                            Find Nearest Branch
+                        <Link href="/services" className="btn-outline">
+                            View Engineering Capabilities
                         </Link>
                     </div>
 
                     {/* Trust Badges */}
                     <div className="flex flex-wrap justify-center gap-8 mt-12 pt-12 border-t border-[#D4AF37]/20">
                         <div className="text-center">
-                            <p className="text-[#D4AF37] font-display text-2xl mb-1">100%</p>
-                            <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">Satisfaction Guaranteed</p>
+                            <p className="text-[#D4AF37] font-display text-2xl mb-1">ISO</p>
+                            <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">Certified Production</p>
                         </div>
                         <div className="text-center">
-                            <p className="text-[#D4AF37] font-display text-2xl mb-1">Free</p>
-                            <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">Initial Consultation</p>
+                            <p className="text-[#D4AF37] font-display text-2xl mb-1">Global</p>
+                            <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">Supply Chain Hub</p>
                         </div>
                         <div className="text-center">
-                            <p className="text-[#D4AF37] font-display text-2xl mb-1">Premium</p>
-                            <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">Quality Materials</p>
+                            <p className="text-[#D4AF37] font-display text-2xl mb-1">Scalable</p>
+                            <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">Capacity Planning</p>
                         </div>
                     </div>
                 </div>

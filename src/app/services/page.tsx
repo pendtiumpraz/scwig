@@ -3,120 +3,114 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaCut, FaPalette, FaTools, FaHeart, FaGraduationCap, FaHandshake, FaCheck } from "react-icons/fa";
+import { HiCog, HiBeaker, HiLibrary, HiShieldCheck, HiOutlinePuzzle } from "react-icons/hi";
 
 const services = [
     {
-        id: "custom",
-        icon: FaCut,
-        title: "Custom Wig Creation",
-        subtitle: "Your Dream Wig, Made Real",
-        description: "Experience the luxury of a wig crafted exclusively for you. Our master craftsmen work with premium materials to create a wig that fits perfectly and looks naturally stunning.",
+        id: "cap-engineering",
+        icon: HiCog,
+        title: "Cap Engineering Technology",
+        subtitle: "Structural Mapping & Design",
+        description: "Our core engineering department focuses on cap structural mapping. Using monofilament scalp simulation and full lace tension distribution analysis, we develop caps that maintain structural integrity without compromising weight or breathability. We support full custom cap engineering based on specific client demographic head sizing and lifestyle requirements.",
         image: "/images/services/custom-wig.jpg",
         features: [
-            "Personal consultation & measurements",
-            "Premium human hair or synthetic options",
-            "Custom color matching to your preference",
-            "Hand-tied craftsmanship for natural look",
-            "Multiple fittings for perfect fit",
-            "Lifetime adjustment guarantee",
-        ],
-        price: "Starting from Rp 5.000.000",
+            "Lace front structural mapping",
+            "Monofilament scalp simulation",
+            "PU base adhesion optimization",
+            "Hybrid combination (Lace+PU+Mono)",
+            "Density mapping development"
+        ]
     },
     {
-        id: "styling",
-        icon: FaPalette,
-        title: "Styling & Consultation",
-        subtitle: "Find Your Perfect Look",
-        description: "Our expert stylists help you discover the ideal wig style that complements your features. From face shape analysis to color consultation, we guide you every step of the way.",
+        id: "material-engineering",
+        icon: HiBeaker,
+        title: "Material Engineering",
+        subtitle: "Fiber & Cuticle Control",
+        description: "Materials are tested and controlled at the microscopic level. For human hair, we implement strict cuticle alignment protocols to prevent inversion tangling. For synthetic fibers, we perform extensive heat resistance testing, shine level calibration, and texture memory engineering to ensure longevity and natural appearance under stress.",
         image: "/images/services/styling.jpg",
         features: [
-            "Face shape & feature analysis",
-            "Skin tone color matching",
-            "Lifestyle consideration",
-            "Try-before-you-buy experience",
-            "Styling demonstration",
-            "Care & maintenance education",
-        ],
-        price: "Free with purchase",
+            "Human hair cuticle alignment (Remy)",
+            "Synthetic heat resistance testing",
+            "Shine level scale calibration",
+            "Chemical processing stress tests",
+            "Fade-resistance UV exposure"
+        ]
     },
     {
-        id: "maintenance",
-        icon: FaTools,
-        title: "Maintenance & Repair",
-        subtitle: "Keep Your Wig Flawless",
-        description: "Extend the life and beauty of your investment with our professional maintenance services. From deep cleaning to complete restoration, we keep your wig looking brand new.",
+        id: "manufacturing",
+        icon: HiLibrary,
+        title: "Manufacturing System",
+        subtitle: "Standardized Flow Engineering",
+        description: "The factory floor at PT Novakor is designed for peak operational efficiency. By utilizing production flow engineering and workstation efficiency layouts, we minimize handling time and reduce the margin of human error. Our capacity planning models guarantee timely delivery regardless of order volume scale.",
         image: "/images/services/maintenance.jpg",
         features: [
-            "Deep cleaning & conditioning",
-            "Restyling & reshaping",
-            "Color refresh & touch-up",
-            "Cap repair & adjustment",
-            "Strand replacement",
-            "Complete restoration",
-        ],
-        price: "Starting from Rp 250.000",
+            "Inline production flow optimization",
+            "Ergonomic workstation layouts",
+            "Digital process tracking",
+            "Yield rate capacity planning",
+            "Climate-controlled assembly zones"
+        ]
     },
     {
-        id: "medical",
-        icon: FaHeart,
-        title: "Medical Wigs",
-        subtitle: "Compassionate Care",
-        description: "We understand the sensitive nature of medical hair loss. Our dedicated team provides discreet, compassionate service with specialized wigs designed for comfort and confidence.",
+        id: "quality",
+        icon: HiShieldCheck,
+        title: "Quality Engineering & Testing",
+        subtitle: "Gate System Verification",
+        description: "Quality is not an afterthought; it is engineered into the system. Our Quality Control Gate System ensures that zero defects pass to the next workstation. Final products undergo rigorous durability simulations including UV degradation, humidity exposure testing, and fiber strength tests to meet international compliance standards.",
         image: "/images/services/custom-wig.jpg",
         features: [
-            "Private consultation rooms",
-            "Sensitive scalp-friendly caps",
-            "Lightweight & breathable designs",
-            "Insurance documentation assistance",
-            "Priority scheduling",
-            "Ongoing support & care",
-        ],
-        price: "Personalized pricing",
+            "Multi-gate inline QC system",
+            "Durability simulation (Washing/UV)",
+            "Fiber tensile strength testing",
+            "Root color consistency metrics",
+            "End-to-end unit traceability"
+        ]
     },
     {
-        id: "training",
-        icon: FaGraduationCap,
-        title: "Training Academy",
-        subtitle: "Learn from the Experts",
-        description: "Join our professional training programs and learn the art of wig making and styling. Perfect for aspiring stylists or salon owners looking to expand their services.",
+        id: "oem",
+        icon: HiOutlinePuzzle,
+        title: "OEM Engineering Solutions",
+        subtitle: "End-to-End Technical Partnership",
+        description: "PT Novakor serves as an extension of your brand's technical team. Beyond just manufacturing, we provide comprehensive OEM solutions starting from initial technical requirement analysis, through prototype engineering, scaling up to mass production, and long-term continuous improvement partnerships.",
         image: "/images/services/styling.jpg",
         features: [
-            "Professional certification program",
-            "Hands-on workshop sessions",
-            "Small class sizes",
-            "Industry expert instructors",
-            "Business development guidance",
-            "Ongoing mentorship",
-        ],
-        price: "Contact for program details",
-    },
-    {
-        id: "wholesale",
-        icon: FaHandshake,
-        title: "Wholesale Partnership",
-        subtitle: "Grow Your Business",
-        description: "Partner with SCWIG for wholesale wig supply. We offer competitive pricing, extensive variety, and dedicated support to help your business thrive.",
-        image: "/images/services/maintenance.jpg",
-        features: [
-            "Competitive wholesale pricing",
-            "Extensive product catalog",
-            "Custom branding options",
-            "Marketing material support",
-            "Dedicated account manager",
-            "Flexible payment terms",
-        ],
-        price: "Contact for partnership details",
-    },
+            "Material selection consultation",
+            "Prototype & sampling engineering",
+            "White-label technical documentation",
+            "Scalable MOQ ramp-up planning",
+            "Long-term R&D partnership"
+        ]
+    }
 ];
 
 export default function ServicesPage() {
     const pageRef = useRef<HTMLDivElement>(null);
     const [isClient, setIsClient] = useState(false);
+    const [activeSection, setActiveSection] = useState("");
 
     useEffect(() => {
         setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (!isClient) return;
+
+        const handleScroll = () => {
+            const sections = services.map((s) => document.getElementById(s.id));
+            const scrollPosition = window.scrollY + 200;
+
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i];
+                if (section && section.offsetTop <= scrollPosition) {
+                    setActiveSection(section.id);
+                    break;
+                }
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [isClient]);
 
     useEffect(() => {
         if (!isClient || !pageRef.current) return;
@@ -141,28 +135,24 @@ export default function ServicesPage() {
                 gsap.fromTo(
                     ".services-hero-content > *",
                     { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+                    { y: 0, opacity: 1, stagger: 0.15, duration: 1, ease: "power3.out" }
                 );
 
-                services.forEach((service) => {
-                    gsap.fromTo(
-                        `#${service.id} .service-image`,
-                        { x: -80, opacity: 0 },
-                        {
-                            x: 0, opacity: 1, duration: 1, ease: "power3.out",
-                            scrollTrigger: { trigger: `#${service.id}`, start: "top 70%" },
-                        }
-                    );
-
-                    gsap.fromTo(
-                        `#${service.id} .service-content > *`,
-                        { x: 50, opacity: 0 },
-                        {
-                            x: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out",
-                            scrollTrigger: { trigger: `#${service.id}`, start: "top 70%" },
-                        }
-                    );
-                });
+                gsap.fromTo(
+                    ".service-block",
+                    { y: 80, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.2,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: ".services-list",
+                            start: "top 80%",
+                        },
+                    }
+                );
             }, pageRef);
         };
 
@@ -175,134 +165,142 @@ export default function ServicesPage() {
     }, [isClient]);
 
     return (
-        <div ref={pageRef}>
+        <div ref={pageRef} className="bg-[#0D0D0D] relative">
             {/* Hero Section */}
-            <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-[#0D0D0D]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/5 to-transparent" />
+            <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0">
+                    <Image
+                        src="/images/services/maintenance.jpg"
+                        alt="Engineering Services"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-[#0D0D0D]/90 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0D0D0D]/70 to-[#0D0D0D]" />
+                </div>
 
-                <div className="services-hero-content relative z-10 text-center px-4">
+                <div className="services-hero-content relative z-20 text-center px-4 max-w-4xl mx-auto mt-20">
                     <div className="flex items-center justify-center gap-4 mb-4">
-                        <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                        <span className="text-[#D4AF37]">✦</span>
-                        <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
+                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
+                        <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em]">Engineering Capabilities</span>
+                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
                     </div>
-                    <h1 className="font-display text-5xl md:text-7xl text-white mb-4">Our Services</h1>
-                    <p className="font-elegant text-xl md:text-2xl text-[#F4E4BC]">Excellence in Every Strand</p>
+
+                    <h1 className="font-display text-4xl md:text-6xl text-white mb-6">
+                        Systematic <span className="text-gold-gradient">Production Services</span>
+                    </h1>
+
+                    <p className="text-[#A0A0A0] text-lg max-w-2xl mx-auto leading-relaxed">
+                        From material science configuration to multigate quality control tracking, our facility offers
+                        complete end-to-end OEM engineering scaling capabilities.
+                    </p>
                 </div>
             </section>
 
-            {/* Services Navigation */}
-            <section className="sticky top-[72px] z-40 bg-[#1A1A1A] border-b border-[#D4AF37]/20">
+            {/* Sticky Navigation */}
+            <nav className="sticky top-[72px] lg:top-[88px] z-40 bg-[#1A1A1A]/95 backdrop-blur-md border-y border-[#D4AF37]/20 py-4 hidden md:block">
                 <div className="container-custom">
-                    <div className="flex overflow-x-auto py-4 gap-4 scrollbar-hide">
+                    <ul className="flex justify-between items-center max-w-5xl mx-auto text-xs uppercase tracking-widest font-mono">
                         {services.map((service) => (
-                            <a
+                            <li key={service.id}>
+                                <a
+                                    href={`#${service.id}`}
+                                    className={`transition-colors flex items-center gap-2 ${activeSection === service.id
+                                        ? "text-[#D4AF37]"
+                                        : "text-[#A0A0A0] hover:text-white"
+                                        }`}
+                                >
+                                    <service.icon className={`text-lg ${activeSection === service.id ? 'animate-pulse' : ''}`} />
+                                    <span>{service.title.split(" ")[0]}</span>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </nav>
+
+            {/* Services List */}
+            <section className="services-list py-24">
+                <div className="container-custom">
+                    <div className="space-y-32">
+                        {services.map((service, index) => (
+                            <div
                                 key={service.id}
-                                href={`#${service.id}`}
-                                className="flex-shrink-0 px-4 py-2 text-sm text-[#A0A0A0] hover:text-[#D4AF37] border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all uppercase tracking-wider"
+                                id={service.id}
+                                className={`service-block scroll-mt-32 md:scroll-mt-48 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center`}
                             >
-                                {service.title}
-                            </a>
+                                {/* Media Content */}
+                                <div className={`relative ${index % 2 !== 0 ? "lg:order-2" : ""}`}>
+                                    <div className="relative aspect-[4/3] w-full border border-[#D4AF37]/30 p-2 overflow-hidden bg-[#1A1A1A]">
+                                        <div className="absolute inset-0 z-10 opacity-20 bg-[linear-gradient(rgba(212,175,55,1)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,1)_1px,transparent_1px)] bg-[size:20px_20px]" />
+
+                                        <div className="relative h-full w-full">
+                                            <Image
+                                                src={service.image}
+                                                alt={service.title}
+                                                fill
+                                                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Tech Data Box Overlay */}
+                                    <div className={`absolute -bottom-8 ${index % 2 !== 0 ? "-left-8 shadow-[-10px_10px_30px_rgba(0,0,0,0.5)]" : "-right-8 shadow-[10px_10px_30px_rgba(0,0,0,0.5)]"} bg-[#0D0D0D] p-6 border border-[#D4AF37]/50 max-w-[250px] z-20 hidden md:block`}>
+                                        <div className="flex items-center gap-3 mb-2 text-[#D4AF37]">
+                                            <service.icon className="text-2xl" />
+                                            <p className="font-mono text-xs uppercase tracking-widest">
+                                                System ID: {String(index + 1).padStart(2, '0')}
+                                            </p>
+                                        </div>
+                                        <p className="text-[#A0A0A0] text-xs uppercase tracking-wider">{service.title}</p>
+                                    </div>
+                                </div>
+
+                                {/* Text Content */}
+                                <div className={`${index % 2 !== 0 ? "lg:order-1" : ""}`}>
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
+                                        <span className="text-[#D4AF37] text-xs uppercase tracking-[0.2em] font-medium">
+                                            {service.subtitle}
+                                        </span>
+                                    </div>
+
+                                    <h2 className="font-display text-3xl md:text-4xl text-white mb-6">
+                                        {service.title}
+                                    </h2>
+
+                                    <p className="text-[#A0A0A0] text-base leading-relaxed mb-8">
+                                        {service.description}
+                                    </p>
+
+                                    {/* Capabilities List */}
+                                    <div className="bg-[#1A1A1A]/50 p-6 border border-[#D4AF37]/20 rounded-sm">
+                                        <h3 className="font-mono text-sm text-[#D4AF37] mb-4 uppercase tracking-[0.2em] flex items-center gap-2">
+                                            <HiCog className="text-lg" /> Implementation Capabilities
+                                        </h3>
+
+                                        <ul className="space-y-3">
+                                            {service.features.map((feature, i) => (
+                                                <li key={i} className="flex items-start gap-3">
+                                                    <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full mt-2" />
+                                                    <span className="text-[#A0A0A0] text-sm">
+                                                        {feature}
+                                                    </span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    <div className="mt-8">
+                                        <Link href="/contact" className="btn-outline text-xs inline-flex items-center gap-2">
+                                            Consult {service.title} <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                         ))}
                     </div>
-                </div>
-            </section>
-
-            {/* Service Sections */}
-            {services.map((service, index) => (
-                <section
-                    key={service.id}
-                    id={service.id}
-                    className={`section-padding ${index % 2 === 0 ? "bg-[#0D0D0D]" : "bg-[#1A1A1A]"}`}
-                >
-                    <div className="container-custom">
-                        <div className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-center ${index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
-                            }`}>
-                            {/* Image */}
-                            <div className={`service-image relative ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                                <div className="relative aspect-[4/3] overflow-hidden">
-                                    <Image
-                                        src={service.image}
-                                        alt={service.title}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                    <div className="absolute inset-4 border border-[#D4AF37]/30" />
-                                </div>
-
-                                {/* Icon Badge */}
-                                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-[#D4AF37] flex items-center justify-center">
-                                    <service.icon className="text-[#0D0D0D] text-3xl" />
-                                </div>
-
-                                <div className="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-[#D4AF37]" />
-                            </div>
-
-                            {/* Content */}
-                            <div className={`service-content ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                                    <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em]">
-                                        {service.subtitle}
-                                    </span>
-                                </div>
-
-                                <h2 className="section-title mb-4">{service.title}</h2>
-
-                                <p className="text-[#A0A0A0] text-lg leading-relaxed mb-8">
-                                    {service.description}
-                                </p>
-
-                                {/* Features */}
-                                <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                                    {service.features.map((feature) => (
-                                        <div key={feature} className="flex items-start gap-3">
-                                            <FaCheck className="text-[#D4AF37] mt-1 flex-shrink-0" />
-                                            <span className="text-white text-sm">{feature}</span>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Price & CTA */}
-                                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-[#D4AF37]/20">
-                                    <div>
-                                        <p className="text-[#A0A0A0] text-xs uppercase tracking-wider mb-1">Investment</p>
-                                        <p className="text-[#D4AF37] font-display text-xl">{service.price}</p>
-                                    </div>
-                                    <Link href="/contact" className="btn-gold sm:ml-auto">
-                                        Get Started
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            ))}
-
-            {/* CTA Section */}
-            <section className="section-padding bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/5 via-transparent to-[#D4AF37]/5" />
-
-                <div className="container-custom relative z-10 text-center">
-                    <div className="flex items-center justify-center gap-4 mb-6">
-                        <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                        <span className="text-[#D4AF37] text-2xl">✦</span>
-                        <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
-                    </div>
-
-                    <h2 className="font-display text-4xl md:text-5xl text-white mb-6">
-                        Not Sure Which Service You Need?
-                    </h2>
-
-                    <p className="font-elegant text-xl text-[#A0A0A0] mb-10 max-w-2xl mx-auto">
-                        Our expert consultants are here to help you find the perfect solution
-                        for your unique needs. Schedule a free consultation today.
-                    </p>
-
-                    <Link href="/contact" className="btn-gold">
-                        Schedule Free Consultation
-                    </Link>
                 </div>
             </section>
         </div>

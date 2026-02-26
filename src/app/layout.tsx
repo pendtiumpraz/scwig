@@ -31,14 +31,14 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: "SCWIG - Premium Wig Solutions | Elegance Reimagined",
-  description: "Indonesia's premier wig provider offering custom wigs, professional styling, and premium wig care services. Experience luxury and confidence with SCWIG.",
-  keywords: "wig, premium wig, custom wig, wig styling, Indonesia, hair solutions, lace front wig",
+  title: "PT Novakor Indonesia - Engineering-Based OEM Wig Manufacturer",
+  description: "Advanced OEM Wig Engineering & Manufacturing Solutions. Precision cap engineering, material science expertise, and scalable production systems.",
+  keywords: "OEM wig manufacturer, wig engineering, PT Novakor Indonesia, custom wig manufacturing, wig production system",
   openGraph: {
-    title: "SCWIG - Premium Wig Solutions",
-    description: "Elegance Reimagined - Premium Wigs for the Extraordinary You",
+    title: "PT Novakor Indonesia",
+    description: "Engineering Beauty Through Precision Manufacturing",
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
   },
 };
 

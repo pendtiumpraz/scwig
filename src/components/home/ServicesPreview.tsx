@@ -3,28 +3,56 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { HiCog, HiBeaker, HiClipboardCheck, HiPuzzle, HiColorSwatch, HiChip } from "react-icons/hi";
 
 const services = [
     {
-        title: "Custom Wig Creation",
+        title: "Cap Engineering Technology",
         description:
-            "Personalized wigs crafted to your exact specifications. From material selection to perfect fit, we create your dream wig.",
+            "Lace front structural mapping, monofilament scalp simulation, full lace tension distribution, PU base adhesion, and hybrid combination systems.",
         image: "/images/services/custom-wig.jpg",
-        href: "/services#custom",
+        href: "/services#cap-engineering",
+        icon: HiCog,
     },
     {
-        title: "Styling & Consultation",
+        title: "Material Engineering",
         description:
-            "Expert stylists help you find the perfect look. We analyze your face shape, skin tone, and lifestyle for the ideal match.",
+            "Human hair cuticle alignment control, synthetic fiber heat resistance testing, shine level calibration, and texture memory engineering.",
         image: "/images/services/styling.jpg",
-        href: "/services#styling",
+        href: "/services#material-engineering",
+        icon: HiBeaker,
     },
     {
-        title: "Maintenance & Care",
+        title: "Manufacturing System",
         description:
-            "Professional wig care services to keep your investment looking flawless. Deep cleaning, conditioning, and restoration.",
+            "Production flow engineering, workstation efficiency layout, quality control gate system, process tracking & traceability.",
         image: "/images/services/maintenance.jpg",
-        href: "/services#maintenance",
+        href: "/services#manufacturing",
+        icon: HiChip,
+    },
+    {
+        title: "Quality Engineering & Testing",
+        description:
+            "Durability simulation (UV, humidity, washing cycle), fiber strength testing, root color consistency measurement, and compliance verification.",
+        image: "/images/services/custom-wig.jpg",
+        href: "/services#quality",
+        icon: HiClipboardCheck,
+    },
+    {
+        title: "OEM Engineering Solutions",
+        description:
+            "Custom cap engineering, density mapping development, material selection consultation, prototype & sampling, long-term technical partnership.",
+        image: "/images/services/styling.jpg",
+        href: "/services#oem",
+        icon: HiPuzzle,
+    },
+    {
+        title: "Custom Development",
+        description:
+            "End-to-end product development from concept to mass production, with prototype engineering and iterative refinement.",
+        image: "/images/services/maintenance.jpg",
+        href: "/services#development",
+        icon: HiColorSwatch,
     },
 ];
 
@@ -110,10 +138,10 @@ export default function ServicesPreview() {
                         <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                     </div>
 
-                    <h2 className="section-title mb-4">Our Services</h2>
+                    <h2 className="section-title mb-4">Engineering Capabilities</h2>
                     <p className="section-subtitle max-w-2xl mx-auto">
-                        Excellence in every strand. Discover our comprehensive range of
-                        premium wig services designed for your unique needs.
+                        Comprehensive engineering services from material science to production systems —
+                        delivering precision-manufactured OEM wig solutions.
                     </p>
 
                     <div className="divider-gold mt-8" />
@@ -128,7 +156,7 @@ export default function ServicesPreview() {
                             className="service-card card-elegant group overflow-hidden"
                         >
                             {/* Image */}
-                            <div className="relative h-64 overflow-hidden">
+                            <div className="relative h-56 overflow-hidden">
                                 <Image
                                     src={service.image}
                                     alt={service.title}
@@ -139,16 +167,18 @@ export default function ServicesPreview() {
 
                                 {/* Gold Overlay on Hover */}
                                 <div className="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                {/* Icon Badge */}
+                                <div className="absolute top-4 right-4 w-12 h-12 bg-[#D4AF37] flex items-center justify-center">
+                                    <service.icon className="text-[#0D0D0D] text-xl" />
+                                </div>
                             </div>
 
                             {/* Content */}
                             <div className="p-6">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="text-[#D4AF37]">✦</span>
-                                    <h3 className="font-display text-xl text-white group-hover:text-[#D4AF37] transition-colors">
-                                        {service.title}
-                                    </h3>
-                                </div>
+                                <h3 className="font-display text-lg text-white group-hover:text-[#D4AF37] transition-colors mb-3">
+                                    {service.title}
+                                </h3>
 
                                 <p className="text-[#A0A0A0] text-sm leading-relaxed mb-4">
                                     {service.description}
@@ -168,7 +198,7 @@ export default function ServicesPreview() {
                 {/* CTA */}
                 <div className="text-center mt-12">
                     <Link href="/services" className="btn-outline">
-                        View All Services
+                        View All Engineering Capabilities
                     </Link>
                 </div>
             </div>

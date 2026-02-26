@@ -84,7 +84,7 @@ export default function AboutPreview() {
                         <div className="relative aspect-[4/5] overflow-hidden">
                             <Image
                                 src="/images/about/about-story.jpg"
-                                alt="SCWIG Workshop"
+                                alt="PT Novakor Indonesia Engineering Facility"
                                 fill
                                 className="object-cover"
                             />
@@ -92,11 +92,11 @@ export default function AboutPreview() {
                         </div>
 
                         <div className="absolute -bottom-6 -right-6 lg:bottom-8 lg:-right-8 bg-[#D4AF37] p-6 lg:p-8">
-                            <p className="font-display text-4xl lg:text-5xl text-[#0D0D0D] font-bold">
-                                15+
+                            <p className="font-display text-3xl lg:text-4xl text-[#0D0D0D] font-bold">
+                                OEM
                             </p>
                             <p className="text-[#0D0D0D] text-sm uppercase tracking-wider font-medium">
-                                Years of<br />Excellence
+                                Engineering<br />Partner
                             </p>
                         </div>
 
@@ -108,36 +108,34 @@ export default function AboutPreview() {
                         <div className="flex items-center gap-4 mb-4">
                             <div className="w-12 h-[1px] bg-[#D4AF37]" />
                             <span className="text-[#D4AF37] text-sm uppercase tracking-[0.3em] font-medium">
-                                Our Story
+                                Engineering DNA
                             </span>
                         </div>
 
                         <h2 className="section-title mb-6">
-                            Crafting Beauty<br />
-                            <span className="text-gold-gradient">Since 2009</span>
+                            System-Based<br />
+                            <span className="text-gold-gradient">Manufacturing</span>
                         </h2>
 
                         <p className="text-[#A0A0A0] text-lg leading-relaxed mb-6">
-                            Founded with a vision to redefine beauty and confidence, SCWIG has
-                            grown from a small atelier to Indonesia&apos;s premier wig destination.
-                            Our journey began with a simple belief: everyone deserves to feel
-                            beautiful and confident.
+                            PT Novakor Indonesia is not just a wig manufacturer — we are an
+                            engineering-driven production company built on precision, standardized
+                            workflows, and measurable quality control checkpoints.
                         </p>
 
                         <p className="text-[#A0A0A0] leading-relaxed mb-8">
-                            Today, we pride ourselves on crafting premium wigs using the finest
-                            materials, combined with expert craftsmanship that has been refined
-                            over 15 years. Each wig tells a story of dedication, artistry, and
-                            the pursuit of perfection.
+                            Our commitment to continuous process improvement ensures consistent
+                            results across every production run. From material selection to final
+                            QC inspection, every stage is engineered for excellence.
                         </p>
 
                         {/* Features */}
                         <div className="grid grid-cols-2 gap-4 mb-8">
                             {[
-                                "Premium Materials",
-                                "Expert Craftsmanship",
-                                "Personalized Service",
-                                "Nationwide Reach",
+                                "System-Based Manufacturing",
+                                "Standardized Workflow",
+                                "Measurable QC Checkpoints",
+                                "Continuous Improvement",
                             ].map((feature) => (
                                 <div key={feature} className="flex items-center gap-3">
                                     <span className="text-[#D4AF37]">✦</span>
@@ -150,7 +148,7 @@ export default function AboutPreview() {
                             href="/about"
                             className="inline-flex items-center gap-3 text-[#D4AF37] font-medium uppercase tracking-wider text-sm group"
                         >
-                            <span>Discover Our Story</span>
+                            <span>Discover Our Engineering DNA</span>
                             <span className="group-hover:translate-x-2 transition-transform">
                                 →
                             </span>

@@ -7,11 +7,10 @@ import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Products", href: "/products" },
-    { name: "Services", href: "/services" },
-    { name: "Branches", href: "/branches" },
-    { name: "Contact", href: "/contact" },
+    { name: "Engineering DNA", href: "/about" },
+    { name: "Engineered Products", href: "/products" },
+    { name: "Capabilities", href: "/services" },
+    { name: "Technical Inquiry", href: "/contact" },
 ];
 
 export default function Header() {
@@ -40,29 +39,29 @@ export default function Header() {
                     <Link href="/" className="flex items-center gap-3 group">
                         <span className="text-[#D4AF37] text-2xl">✦</span>
                         <div>
-                            <h1 className="font-accent text-2xl tracking-[0.3em] text-white group-hover:text-[#D4AF37] transition-colors">
-                                SCWIG
+                            <h1 className="font-accent text-xl md:text-2xl tracking-[0.15em] text-white group-hover:text-[#D4AF37] transition-colors leading-tight">
+                                PT NOVAKOR
                             </h1>
-                            <p className="text-[10px] tracking-[0.2em] text-[#A0A0A0] uppercase">
-                                Premium Wigs
+                            <p className="text-[10px] tracking-[0.3em] text-[#A0A0A0] uppercase font-medium">
+                                Indonesia
                             </p>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <ul className="hidden lg:flex items-center gap-8">
+                    <ul className="hidden xl:flex items-center gap-8">
                         {navLinks.map((link) => (
                             <li key={link.name}>
                                 <Link
                                     href={link.href}
-                                    className={`relative font-medium text-sm tracking-wider uppercase transition-colors duration-300 ${pathname === link.href
+                                    className={`relative font-medium text-xs tracking-[0.15em] uppercase transition-colors duration-300 ${pathname === link.href
                                         ? "text-[#D4AF37]"
                                         : "text-white/80 hover:text-[#D4AF37]"
                                         }`}
                                 >
                                     {link.name}
                                     <span
-                                        className={`absolute -bottom-1 left-0 h-[1px] bg-[#D4AF37] transition-all duration-300 ${pathname === link.href ? "w-full" : "w-0"
+                                        className={`absolute -bottom-1.5 left-0 h-[1px] bg-[#D4AF37] transition-all duration-300 ${pathname === link.href ? "w-full" : "w-0"
                                             }`}
                                     />
                                 </Link>
@@ -73,14 +72,14 @@ export default function Header() {
                     {/* CTA Button */}
                     <Link
                         href="/contact"
-                        className="hidden lg:block btn-gold text-xs py-3 px-6"
+                        className="hidden md:block btn-gold text-xs py-3 px-6"
                     >
-                        Book Consultation
+                        Submit Inquiry
                     </Link>
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="lg:hidden text-white text-3xl"
+                        className="xl:hidden text-white text-3xl ml-4"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
@@ -90,7 +89,7 @@ export default function Header() {
 
                 {/* Mobile Menu */}
                 <div
-                    className={`lg:hidden fixed inset-0 top-[72px] bg-[#0D0D0D]/98 backdrop-blur-lg transition-all duration-500 ${isMobileMenuOpen
+                    className={`xl:hidden fixed inset-0 top-[72px] bg-[#0D0D0D]/98 backdrop-blur-lg transition-all duration-500 ${isMobileMenuOpen
                         ? "opacity-100 visible"
                         : "opacity-0 invisible pointer-events-none"
                         }`}
@@ -110,7 +109,7 @@ export default function Header() {
                                 <Link
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`font-display text-3xl tracking-wider transition-colors ${pathname === link.href
+                                    className={`font-display text-2xl tracking-wider transition-colors uppercase ${pathname === link.href
                                         ? "text-[#D4AF37]"
                                         : "text-white hover:text-[#D4AF37]"
                                         }`}
@@ -119,15 +118,6 @@ export default function Header() {
                                 </Link>
                             </li>
                         ))}
-                        <li className="mt-4">
-                            <Link
-                                href="/contact"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="btn-gold"
-                            >
-                                Book Consultation
-                            </Link>
-                        </li>
                     </ul>
                 </div>
             </div>
